@@ -1,0 +1,29 @@
+Nessa aula vamos continuar estudando o hook useState só que agora
+vamos usar ele com string, para alterar o estado de um componente
+controlado, como vimos em aulas anteriores também.
+
+Primeiro dentro de useState vamos criar outra constante que vai
+receber os seguintes elementos, lembrando dos 2 elementos
+1º estado inicial
+2º função que vai alterar o estado
+
+const [name, setName] = useState("Inicial")
+
+depois disso vamos acrescentar as seguintes linhas de códigos:
+
+<SectionTitle title="Exercicio #02" />
+            <input type="text" className="input" 
+             value={name} onChange={e => setName(e.target.value)}  />
+
+
+             <span className="text">{name}</span>
+
+
+ criamos um input que está recebendo o estado inicial escrito "Inicial",
+ porém lembrando que como ele é um componente controlado não conseguimos
+ alterar nenhuma escrita, conseguimos alterar através de um evento, e vamos
+ usar o onChange para isso, atribuimos uma função anonima para que quando tiver
+ uma alteração no estado vai chamar aa função setName() e vai alterar o alvo e o valor
+ do alvo quando for chamado.            
+
+ onChange={e => setName(e.target.value)}
