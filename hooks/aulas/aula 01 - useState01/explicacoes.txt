@@ -1,0 +1,53 @@
+Nessa aula vamos estudar o primeiro hook o useState, que serve
+para alterar o estado do componente, já vimos isso em aulas anteriores
+
+
+para relembrar o useState trabalha com um array de 2 elementos, 
+
+a 1º posição do array é o valor inicial, no caso é o valor 0 no nosso exemplo
+e o segundo é a função que vai alterar o número(ou o estado)
+
+no nosso caso vai ficar dessa forma:
+
+const [count, setCount] = useState(0)
+
+
+Continuando o exercício vamos implementar no nosso componente useState.jsx, dentro dele
+vamos colocar o seguinte código:
+
+import React, { useState } from 'react'
+import PageTitle from '../../components/layout/PageTitle'
+import SectionTitle from '../../components/layout/SectionTitle'
+
+const UseState = (props) => {
+
+    const [count, setCount] = useState(0)
+
+    return (
+        <div className="UseState">
+            <PageTitle
+                title="Hook UseState"
+                subtitle="Estado em componentes funcionais!"
+            />
+
+            <SectionTitle title="Exercicio #01" /> Estamos chamando outro componente criado chamado SectionTitle
+            
+            <div className="center">
+                <span className="text">{count}</span>
+                <div>
+                <button className="btn" onClick={()=> setCount(count -1)}>-1</button>
+                <button className="btn" onClick={()=> setCount(count +1)}>+1</button>
+                </div>
+            </div>
+
+            <SectionTitle title="Exercicio #02" />
+        </div>
+    )
+}
+
+export default UseState
+
+dentro de <button className="btn" onClick={()=> setCount(count -1)}>-1</button>, estamos chamando a função
+que é o 2º elemento do nosso array que é o setCount, que ele vai ser chamado apenas no momento do click, por
+isso colocamos o onClick para chamar apenas quando é clicado e assim vai alterar o estado.
+
