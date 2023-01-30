@@ -1,0 +1,4 @@
+Nessa aula vamos fazer um desafio, seguindo o mesmo raciocínio vamos fazer um desafio que a pessoa
+coloca no input um número e em cima mostra se o número é par ou é impar.
+
+

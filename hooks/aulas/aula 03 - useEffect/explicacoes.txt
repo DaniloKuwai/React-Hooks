@@ -1,6 +1,17 @@
+O useEffect Permite executar efeitos colaterais em componentes funcionais.
+
+E o que é um efeito colateral, é por exemplo você colocar um valor em um input
+e esse valor vai causar um efeito colateral em outra parte do site por exemplo.
+
+
+Vamos a um exemplo, vamos a partir de um input do tipo número, que quando colocar
+o número acima vai mostrar o valor do fatorial, ou seja quando vai colocar um número
+no input ele vai ter o efeito colateral e vai alterar o valor acima.
+
+vamos alterar o useEffect.jsx:
+
 import React, { useEffect, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
-import SectionTitle from '../../components/layout/SectionTitle'
 
 
 function calcFatorial(num){
@@ -10,28 +21,11 @@ function calcFatorial(num){
     return calcFatorial(n-1) * n
 }
 
-function calcParImpar(num){
-    const i = parseInt(num)
-    const result = i % 2
-    return result
-}
-
 const UseEffect = (props) => {
 
     const [number, setNumber] = useState(1)
     const [fatorial,setFatorial] = useState(1)
 
-    const [number2,setNumber2] = useState(0)
-    const [resultado,setResutado] = useState(0)
-
-    {/* useEffect exercício 02*/}
-
-    useEffect(function(){
-        setResutado(calcParImpar(resultado))
-    },[resultado])
-
-
-    {/* useEffect exercício 01*/}
     useEffect(function (){
         setFatorial(calcFatorial(number))
     },[number])
@@ -43,8 +37,6 @@ const UseEffect = (props) => {
                 subtitle="Permite executar efeitos colaterais em componentes funcionais!"
             />
 
-            <SectionTitle title="Exercício #01"/>
-
             <div className="center">
                 <div>
                 <span className="text">Fatorial:</span>
@@ -52,17 +44,14 @@ const UseEffect = (props) => {
                 </div>
             <input type="number" className="input" value={number} onChange={e => setNumber(e.target.value)} />
             </div>
-
-            <SectionTitle title="Exercício #02"/>
-            <div className="center">
-                <div>
-                    <span className="text">Par ou Impar:</span>
-                    <span className="text red"> {resultado} </span>
-                </div>
-                <input type="number" className="input" value={number2} onChange={e => setNumber2(e.target.value)} />
-            </div>
         </div>
     )
 }
 
 export default UseEffect
+
+
+o UseEffect funciona da seguinte forma, ele também tem 2 elementos.
+
+1º a função que vai ser chamada 
+2º um array com o elemento que quando for alterado vai acionar a função que é o número 1
