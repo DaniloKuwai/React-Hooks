@@ -102,7 +102,7 @@ esse array estamos usando para criar o nosso input não controlado:
 Nesse outro trecho criamos nosso outro array para ser utilizado com o useEffect, seguindo o padrão:
 
 1º -> o primeiro item do array é uma função
-2º -> o número inicial
+2º -> o campo que quando for alterado vai executar a função do nº 1
 
 const [resultado,setResutado] = useState(0)
 
