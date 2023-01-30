@@ -27,8 +27,8 @@ const UseEffect = (props) => {
     {/* useEffect exercício 02*/}
 
     useEffect(function(){
-        setResutado(calcParImpar(resultado))
-    },[resultado])
+        setResutado(calcParImpar(number2))
+    },[number2])
 
 
     {/* useEffect exercício 01*/}
@@ -57,7 +57,7 @@ const UseEffect = (props) => {
             <div className="center">
                 <div>
                     <span className="text">Par ou Impar:</span>
-                    <span className="text red"> {resultado} </span>
+                    <span className="text red"> {resultado === 0 ? 'Par' : 'Impar'} </span>
                 </div>
                 <input type="number" className="input" value={number2} onChange={e => setNumber2(e.target.value)} />
             </div>
