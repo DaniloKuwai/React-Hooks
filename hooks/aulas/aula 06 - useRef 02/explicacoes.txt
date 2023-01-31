@@ -1,3 +1,28 @@
+Nessa aula vamos ver algumas outras utilizações do UseRef, podemos 
+referenciar um elemento html específico utilizando o useRef dentro da tag, dessa
+forma por exemplo:
+
+
+<input type="text" className="input" 
+                ref={myInput1} // dessa forma 
+                value={value1} onChange={e => setValuer(e.target.value)} />
+
+
+
+const myInput1 = useRef(null)
+    const myInput2 = useRef(null)
+
+    console.log(myInput1.current)
+
+quando dá o console.log vai e é digitado algo no input ele vai mostrar a referência do
+input que está com a tag ref={myInput1}
+
+com esse hook, conseguimos por exemplo fazer um desafio que é quando é digitado um valor 
+em um input, automaticamente vai para o outro input e depois que digita no segundo input
+volta para o primeiro e assim por diante.
+
+o código ficou dessa forma:
+
 import React, { useEffect, useRef , useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'

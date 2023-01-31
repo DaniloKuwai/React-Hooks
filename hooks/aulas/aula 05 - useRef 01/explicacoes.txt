@@ -1,32 +1,26 @@
+Nessa aula vamos conhecer o Hook UseRef, ele
+retorna um objeto mutável com a propriedade .current!, e o que significa isso?
+Ref tem haver com referência, você tem a referência de um objeto e esse objeto
+tem o current(atual) e dentro do current posso ter um number, string ou até mesmo uma 
+referência para um elemento html, vamos ver um exemplo de como usar ele.
+
+No caso vamos criar um contandor para quantas vezes a pessoa digitar no input ele vai
+contando quantas digitações tem no campo. Segue o código:
+
 import React, { useEffect, useRef , useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
-const merge = function (s1,s2){
-    return s1 += s2
-}
-
 const UseRef = (props) => {
 
     const [value1,setValuer] = useState("")
-    const [value2,setValuer2] = useState("")
     const count = useRef(0)
 //o useRef sempre vai me retornar a mesma referência e eu consigo ter um estado
 // a partir do current
 
-    const myInput1 = useRef(null)
-    const myInput2 = useRef(null)
-
-
     useEffect(function(){
         count.current = count.current + 1
-        myInput2.current.focus()
     }, [value1])
-
-    useEffect(function(){
-        count.current++
-        myInput1.current.focus()
-    }, [value2])
 
     
 
@@ -41,23 +35,12 @@ const UseRef = (props) => {
             <div className="center">
                 <div>
                     <span className="text">Valor:</span>
-                    <span className="text">{merge(value1,value2)}[</span>
+                    <span className="text">{value1}[</span>
                     <span className="text red">{count.current}</span>
                     <span className="text">]</span>
                 </div>
                 <input type="text" className="input" 
-                ref={myInput1}
                 value={value1} onChange={e => setValuer(e.target.value)} />
-            </div>
-
-            <SectionTitle title="Exercicio #02" />
-            <div className="center">
-
-
-                <input type="text" className="input" 
-                ref={myInput2}
-                value={value2} onChange={e => setValuer2(e.target.value)} />
-
             </div>
         </div>
     )
