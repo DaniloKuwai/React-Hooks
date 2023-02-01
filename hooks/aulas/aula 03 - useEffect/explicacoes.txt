@@ -53,5 +53,8 @@ export default UseEffect
 
 o UseEffect funciona da seguinte forma, ele também tem 2 elementos.
 
-1º a função que vai ser chamada 
-2º um array com o elemento que quando for alterado vai acionar a função que é o número 1
+1º a função(normalmente callback (function(){})) que vai ser chamada quando for causar o efeito colateral
+2º o elemento que eu dependo para conseguir rodar a função, no caso nesse exemplo que fizemos necessitamos
+do number para conseguir calcular nosso fatorial [number], uma outra forma de pensar é que a função depende
+de qual elemento para ser chamada, por exemplo quando for alterado o number no nosso input no value ele vai
+entender que o number foi modificado e vai chamar a função calcFatorial que está dentro da função setFatorial
