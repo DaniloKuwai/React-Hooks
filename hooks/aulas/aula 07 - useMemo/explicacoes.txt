@@ -1,0 +1,104 @@
+O UseMemo é um hook que conseguimos executar uma
+ação em elementos apenas quando houver alguma alteração
+nos elementos selecionados, vamos a um exemplo:
+
+No exercício atual, vamos fazer uma página com 3 inputs,
+nesses 3 inputs vamos colocar um delay de 2 segundos para
+conseguir digitar nos campos. Vamos definir isso com essa
+função:
+
+function sum(a, b){
+    const future = Date.now() + 2000
+    while(Date.now() < future) {} //espera...2s
+    return a + b
+}
+
+porém essa função vai deixar os 3 campos lentos, mesmo não chamando
+o 3º input no código, segue código inteiro:
+
+import React, { useState } from 'react'
+import PageTitle from '../../components/layout/PageTitle'
+
+function sum(a, b){
+    const future = Date.now() + 2000
+    while(Date.now() < future) {} //espera...2s
+    return a + b
+}
+
+const UseMemo = (props) => {
+    const [n1,setN1] = useState(0)
+    const [n2,setN2] = useState(0)
+    const [n3,setN3] = useState(0)
+
+    const result = sum(n1, n2)
+
+
+    return (
+        <div className="UseMemo">
+            <PageTitle
+                title="Hook UseMemo"
+                subtitle="Retorna um valor memoizado!"
+            />
+
+            <div className="center">
+                <input type="number" className="input" value={n1} onChange={e=> setN1(parseInt(e.target.value))}/>
+                <input type="number" className="input" value={n2} onChange={e=> setN2(parseInt(e.target.value))}/>
+                <input type="number" className="input" value={n3} onChange={e=> setN3(parseInt(e.target.value))}/>
+                <span className="text">{result}</span>
+            </div>
+        </div>
+    )
+}
+
+export default UseMemo
+
+
+se for observado no result é utilizado apenas o n1 e o n2 mais se for digitar algo no n3, vai ficar lento. o UseMemo
+serve para resolver essa questão, poderiamos utilizar o useState em conjunto com o useEffect, porém com o UseMemo conseguimos
+executar a mesma coisa com apenas uma linha de código, segue implementação do UseMemo
+
+const result = useMemo(() => sum(n1,n2),[n1,n2])
+
+o useMemo segue as seguintes regras:
+
+1º vem a função que vai ser utilizada
+2º definimos os elementos que quando forem alterados vai ser chamado a função que foi definido no 1º item
+
+e nesse caso não vamos afetar o 3º elemento, porquê já foi definido que apenas o n1 e n2 vai usar a função e só quando houver alterações
+nesses elementos que vai ter esse delay de 2 segundos que implementamos. Segue o código final:
+
+import React, { useMemo, useState } from 'react'
+import PageTitle from '../../components/layout/PageTitle'
+
+function sum(a, b){
+    const future = Date.now() + 2000
+    while(Date.now() < future) {} //espera...2s
+    return a + b
+}
+
+const UseMemo = (props) => {
+    const [n1,setN1] = useState(0)
+    const [n2,setN2] = useState(0)
+    const [n3,setN3] = useState(0)
+
+    const result = useMemo(() => sum(n1,n2),[n1,n2])
+
+
+    return (
+        <div className="UseMemo">
+            <PageTitle
+                title="Hook UseMemo"
+                subtitle="Retorna um valor memoizado!"
+            />
+
+            <div className="center">
+                <input type="number" className="input" value={n1} onChange={e=> setN1(parseInt(e.target.value))}/>
+                <input type="number" className="input" value={n2} onChange={e=> setN2(parseInt(e.target.value))}/>
+                <input type="number" className="input" value={n3} onChange={e=> setN3(parseInt(e.target.value))}/>
+                <span className="text">{result}</span>
+            </div>
+        </div>
+    )
+}
+
+export default UseMemo
