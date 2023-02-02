@@ -1,0 +1,69 @@
+Nessa aula vamos ver o hook UseCallback, esse hook faz com que
+não seja necessário toda vez que for utilizar uma função, ficar
+renderizando novamente toda hora a página, no padrão quando é 
+uitlizado o useMemo ele toda vez que é acionado ele renderiza 
+a função e o conteúdo na tela, com a opção UseCallback não é
+necessário, ele renderiza apenas uma vez todo conteúdo do elemento
+e deixa em cache a função a ser utilizada, vamos a um exemplo de código:
+
+vamos alterar o UseCallback.jsx que vai ficar com o seguinte código:
+
+import React, { useCallback, useState } from 'react'
+import PageTitle from '../../components/layout/PageTitle'
+import UseCallbackButtons from './UseCallbackButtons'
+
+const UseCallback = (props) => {
+
+    const[count,setCount] = useState(0)
+
+    const inc = useCallback(function (delta) {
+        setCount(curr => curr + delta)
+    },[setCount])
+
+    /*
+    essa função substituimos pela acima
+    function inc(delta){
+        setCount(count + delta)
+    }*/
+
+
+
+    return (
+        <div className="UseCallback">
+            <PageTitle
+                title="Hook UseCallback"
+                subtitle="Retorna uma função memoizada!"
+            />
+            <div className="center">
+                <span className="text">{count}</span>
+            </div>
+            <UseCallbackButtons inc={inc}/>
+        </div>
+    )
+}
+
+export default UseCallback
+
+
+esse código vai executar uma soma de 6 em 6 ou de e importamos os componentes dos botões
+de calculo em um arquivo chamado UseCallbackButtons:
+
+import React from "react";
+
+const UseCallbackButtons = props => {
+    console.log('render...')
+    return(
+            <div>
+                <button className="btn" onClick={() => props.inc(6)}>+6</button>
+                <button className="btn" onClick={() => props.inc(12)}>+12</button>
+                <button className="btn" onClick={() => props.inc(18)}>+18</button>
+            </div>
+    )
+}
+
+export default React.memo(UseCallbackButtons)
+
+nele em vez de exportarmos o componente diretamente usamos o React.memo que ele é muito
+importante para a questão de renderizar apenas uma vez.
+
+então temos que usr o useCallback junto com o React.memo

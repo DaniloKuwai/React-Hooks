@@ -102,3 +102,6 @@ const UseMemo = (props) => {
 }
 
 export default UseMemo
+
+Resumo:
+Ele só vai executar a ação quando os elementos setados na 2º posição forem alterados.
