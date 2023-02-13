@@ -1,0 +1,49 @@
+Esse hook useContext permite que você importe o contexto de um arquivo 
+externo e o use dentro do componente filho, essa forma é a mais fácil
+e eficiente do que passar manualmente as propriedades para cada componente.
+
+para iniciar vamos criar uma pasta dentro de src chamado data, dentro dele
+vamos criar um arquivo chamado DataContext.js, nele vamos criar o nosso contexto para poder
+aplicar no componente de mais auto nível (que seria o componente pai, ou no App.jsx ou no index.js
+são os nossos principais).
+
+vamos ao código do DataContext:
+
+import React from 'react'
+
+export const data = {
+    number: 123,
+    text: 'Context API...'
+}
+
+const DataContext = React.createContext(data)
+//com esse comando, estamos criando um contexto 
+ para conseguir usar em qualquer outro componente.
+
+export default DataContext
+
+Após isso vamos importar o nosso DataContext.js no nosso index.js e vamos chamar ele usando o métodos .provider, o código
+vai ficar dessa forma:
+
+import './index.css'
+import ReactDOM from 'react-dom'
+import React from 'react'
+
+import App from './views/App'
+
+import DataContext, {data} from './data/DataContext'
+ 
+
+ReactDOM.render(
+
+    <DataContext.Provider value={data}>
+        <App />
+    </DataContext.Provider>,
+    
+    document.getElementById('root')
+)
+
+Chamamos como se fosse um componente, porém para acessar o nosso contexto usamos o atributo value={data}, com 
+ele vai ser possível acessar os objetos que nós criamos em DataContext.js
+
+Agora vamos ver funcionando em um componente que está longe do componente pai, vamos usar no useContext 
