@@ -1,3 +1,48 @@
+Na aula anterior, vimos como usar o useContext porém de uma forma perigosa usando para alterar estados
+que pode alterar o estado inteiro da aplicação, podendo ter problemas, o que vamos fazer nessa aula, é deixar
+de uma forma mais organizada nosso código encapsulando de uma forma correta e deixando nosso código mais de alto
+nível do que da forma que está.
+
+Para isso dentro de data, vamos criar um Store.jsx, vamos fazer na verdade um código novo(refatorar) para a mesma
+lógica, só que de uma forma mais fácil, o código do Store.jsx vai ficar dessa forma:
+
+import React, { useState } from "react";
+
+const initialState = {
+    number: 1234,
+    text:'Context API + Hooks'
+}
+
+export const AppContext = React.createContext(initialState)
+
+const Store = props => {
+    const [state, setState] = useState(initialState)
+
+    function updateState(key,value){
+        setState({
+            ...state,
+            [key]: value
+        })
+    }
+    
+    
+    return (
+        <AppContext.Provider value={{
+            number: state.number,
+            text: state.text,
+            setNumber: n => updateState('number',n),
+            setText: t => updateState('text',t),
+        }}>
+            {props.children}
+        </AppContext.Provider>
+        
+    )
+}
+
+export default Store
+
+E também vamos adicionar como exercício 02 no nosso useContext o código vai ficar da seguinte forma:
+
 import React, { useContext } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
