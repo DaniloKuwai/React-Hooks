@@ -2,6 +2,11 @@ Esse hook useContext permite que você importe o contexto de um arquivo
 externo e o use dentro do componente filho, essa forma é a mais fácil
 e eficiente do que passar manualmente as propriedades para cada componente.
 
+Resumindo, colocamos no componente de mais alto nível para que todos os outros
+componentes filhos consigam acessar esses dados, porquê na árvore dos componentes, 
+todos os componentes filhos vão conseguir acessar porquê ele está disponível no componente
+pai e todos eles tem acesso ao componente pai.
+
 para iniciar vamos criar uma pasta dentro de src chamado data, dentro dele
 vamos criar um arquivo chamado DataContext.js, nele vamos criar o nosso contexto para poder
 aplicar no componente de mais auto nível (que seria o componente pai, ou no App.jsx ou no index.js
@@ -36,7 +41,8 @@ import DataContext, {data} from './data/DataContext'
 
 ReactDOM.render(
 
-    <DataContext.Provider value={data}>
+    <DataContext.Provider value={data}> // a partir do value e setando o data que é exportado, todos os componentes filhos agora tem acesso
+    ao nosso DataContext.js, aos dados
         <App />
     </DataContext.Provider>,
     
@@ -46,4 +52,100 @@ ReactDOM.render(
 Chamamos como se fosse um componente, porém para acessar o nosso contexto usamos o atributo value={data}, com 
 ele vai ser possível acessar os objetos que nós criamos em DataContext.js
 
-Agora vamos ver funcionando em um componente que está longe do componente pai, vamos usar no useContext 
+Agora vamos ver funcionando em um componente que está longe do componente pai, vamos usar no useContext.jsx e vamos agora poder acessar de um componente
+que está longe do outro da seguinte forma:
+
+import React, { useContext } from 'react'
+import PageTitle from '../../components/layout/PageTitle'
+import DataContext from '../../data/DataContext'
+
+const UseContext = (props) => {
+
+    const context = useContext(DataContext)
+    
+    return (
+        <div className="UseContext">
+            <PageTitle
+                title="Hook UseContext"
+                subtitle="Aceita um objeto de contexto e retorna o valor atual do contexto!"
+            />
+            <div className="center">
+                <span className="text">{context.text}</span>
+                <span className="number">{context.number}</span>
+            </div>
+        </div>
+    )
+}
+
+export default UseContext
+
+Podemos também jogar dentro do nosso App.jsx e vai ficar com o código dessa forma:
+
+import './App.css'
+import React, { useState } from 'react'
+import { BrowserRouter as Router } from  'react-router-dom'
+
+import Menu from '../components/layout/Menu'
+import Content from '../components/layout/Content'
+import DataContext, {data} from '../data/DataContext'
+
+const App = props => {
+
+    const [state,setState] = useState(data)
+
+    return (
+
+        <DataContext.Provider value={{state, setState}}>  
+                <div className="App">
+                    <Router>
+                        <Menu />
+                        <Content />
+                    </Router>
+                </div>
+        </DataContext.Provider>       
+    )
+}
+
+export default App
+
+e vamos alterar também agora o useContext, criando uma opção para mudar o estado numérico da nossa aplicação:
+
+import React, { useContext } from 'react'
+import PageTitle from '../../components/layout/PageTitle'
+import DataContext from '../../data/DataContext'
+
+const UseContext = (props) => {
+
+    const context = useContext(DataContext)
+
+    function addNumber(delta){
+        context.setState({
+            ...context.state,
+            number: context.state.number + delta
+        })
+    }
+    
+    return (
+        <div className="UseContext">
+            <PageTitle
+                title="Hook UseContext"
+                subtitle="Aceita um objeto de contexto e retorna o valor atual do contexto!"
+            />
+            <div className="center">
+                <span className="text">{context.state.text}</span>
+                <span className="number">{context.state.number}</span>
+
+                <div>
+                    <button className='btn' onClick={() => addNumber(-1)}>-1</button>
+                    <button className='btn' onClick={() => addNumber(+1)}>+1</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default UseContext
+
+
+e o mais importante dessa alteração é que, mesmo a gente indo para outra página da nossa aplicação
+ele vai manter o valor do estado atual, só vai alterar caso seja feito um refresh na página.
