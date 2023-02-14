@@ -1,3 +1,44 @@
+Vamos ver agora o useReducer, para isso primeiro vamos criar um estado dentro do useReducer.jsx:
+
+const initialState = {
+    cart: [],
+    products: [],
+    user: null,
+    number: 0
+}
+
+Estamos criando um estado inicial simulando por exemplo um carrinho de compras, e inicia sem usuário,
+com o número 0 (itens no carrinho), cart(carrinho vazio) e os products(quantidade de produto vazio)
+
+e agora vamos criar uma função reducer ela vai receber 2 parâmetros 
+
+o 1º parâmetro - recebe o estado
+o 2º parâmetro - recebe uma ação(toda ação tem um tipo(um nome dela))
+
+essa função vai evoluir o estado atual, conforme a ação, a função vai ficar dessa forma:
+
+function reducer(state,action){
+    switch(action.type){
+        case 'numberAdd2':
+            return {...state,number:state.number + 2}
+        case 'login':
+            return {...state, user: {name: action.payload}}    
+        default:
+            return state    
+    }
+}
+
+1º temos um switch, para se caso o tipo da ação for numberAdd2 vai somar + 2
+2º caso a ação for um login, vai mostrar o usuário que definimos
+3º se não vai retornar ao estado inicial
+
+
+Agora vamos criar o nosso useReducer. primeiro vamos criar nosso estado inicial
+
+const[state,dispatch] = useReducer(reducer, initialState)
+
+Nosso código inteiro vai ficar dessa forma:
+
 import React, { useReducer } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 
