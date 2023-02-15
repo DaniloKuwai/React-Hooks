@@ -1,3 +1,12 @@
+Nessa aula vamos aproveitar o useReducer.jsx e vamos adicionar os itens do desafio.
+
+1º criar uma action opção que multiplica o número por 7
+2º criar uma action opção que dividi o número por 25
+3º criar uma action para deixar o número inteiro
+4º Adicionar um número ou subtrair qualquer número, usando o payload
+
+segue como ficou o código inteiro:
+
 import React, { useReducer } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 
@@ -59,3 +68,5 @@ const UseReducer = (props) => {
 }
 
 export default UseReducer
+
+

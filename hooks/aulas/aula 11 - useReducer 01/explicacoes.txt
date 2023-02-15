@@ -88,3 +88,6 @@ const UseReducer = (props) => {
 }
 
 export default UseReducer
+
+
+para disparar a ação, vamos usar os button no momento do onClick() vai disparar a ação.
