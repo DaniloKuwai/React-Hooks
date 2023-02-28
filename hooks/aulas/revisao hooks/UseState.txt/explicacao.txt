@@ -1,0 +1,31 @@
+O usestate é um hook que serve para armazenar e atualizar dados ao longo do tempo, ele permite armazenar dados de todos os tipos
+como:
+
+Objetos
+Arrays
+Booleanos
+numéricos
+string e etc
+
+com ele conseguimos setar um estado inicial dele, e criar uma função que vai alterando o valor dele com o decorrer do tempo, vamos a um
+exemplo:
+
+primeiro para chamar ele, temos que fazer o import:
+
+import React, { useState } from 'react';
+
+Após importar ele podemos utilizar ele criando uma constante como um array que armazena 2 valores:
+
+const [count, setCount] = useState(0);
+
+sempre nessa ordem:
+
+1º valor do array é sempre para manter o estado inicial:
+2º a função que vai alterar o estado inicial do componente
+
+e o useState(0) defini o valor inicial como 0, porém se colocar 1, ele iniciaria como 1
+
+para usar a função podemos criar um botão e no momento de onclick ele vai acionar uma função
+anônima, que vai chamar a função setCount(), conforme o exemplo abaixo:
+
+<button onClick={() => setCount(count + 1)}>Incrementar</button>
